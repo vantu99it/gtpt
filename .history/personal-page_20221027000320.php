@@ -93,11 +93,10 @@ if(isset($_POST['close'])){
                         <?php if (isset($nameVl)) { ?>
                             <div class="account">
                                 <div class="account__avt">
-                                <?php if($avatar != ""){ ?>
-                                    <img src="<?php echo $avatar?>" alt="avata" />
-                                <?php } else{?>
                                     <i class="fa-solid fa-user"></i>
-                                <?php } ?>
+                                    <?php if($avatar != ""){ ?>
+                                        <img src="<?php echo $avatar?>" alt="avata" />
+                                    <?php } ?>
                                 </div>
                                 <div class="account__name">
                                     <p class="account__fullname" style="color:#000"><?php echo $nameVl ?></p>
@@ -176,11 +175,10 @@ if(isset($_POST['close'])){
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data" method="post" class="form--flex">
                                 <div class="infor-detail__avt">
                                     <div class="account__avt image">
-                                    <?php if($avatar != ""){ ?>
-                                        <img src="<?php echo $avatar?>" alt="avata" />
-                                    <?php } else{?>
                                         <i class="fa-solid fa-user"></i>
-                                    <?php } ?>
+                                        <?php if($avatar != ""){ ?>
+                                            <img src="<?php echo $avatar?>" alt="avata" />
+                                        <?php } ?>
                                     </div>
                                     <div class="infor-detail_upload">
                                         <input type="file" name="avtImage" >

@@ -46,3 +46,13 @@ const acc_menu = document.querySelector(".account__menu");
 acc.onclick = function () {
   acc_menu.classList.toggle("hide");
 };
+// //thong bao
+// const notify = document.querySelector(".js-modal__notify");
+// const buttons = document.querySelectorAll(".js-modal__button");
+
+// function hideFormNotify() {
+//   notify.classList.add("close");
+// }
+// for (const button of buttons) {
+//   button.addEventListener("click", hideFormNotify);
+// }

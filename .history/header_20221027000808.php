@@ -1,6 +1,14 @@
 <?php 
 include 'include/connect.php';
 $name = (isset($_SESSION['name']))? $_SESSION['name']:[];
+if(isset($_SESSION['name'])){
+  $sqlCheck = "SELECT * FROM user WHERE username= '".$name['username']."'";
+  $queryCheck = mysqli_query($conn, $sqlCheck);
+  $data = mysqli_fetch_assoc($queryCheck);
+  $fullName = $data['name'];
+  $avatar = $data['avatar'];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -42,17 +50,20 @@ $name = (isset($_SESSION['name']))? $_SESSION['name']:[];
             <li><a href="">Giúp đỡ</a></li>
           </ul>
         </div>
-        <?php if(isset($name['name'])){ ?>
+        <?php if(isset($fullName)){ ?>
         <div class="account account--right">
           <div class="account__avt">
-            <i class="fa-solid fa-user"></i>
-            <img src="./image/avt.jpg" alt="avata" />
+            <?php if($avatar != ""){ ?>
+             <img src="<?php echo $avatar?>" alt="avata" />
+            <?php } else{?>
+              <i class="fa-solid fa-user"></i>
+              <?php } ?>
           </div>
           <div class="account__name">
-            <p class="account__fullname"><?php echo $name['name'] ?></p>
+            <p class="account__fullname"><?php echo $fullName ?></p>
             <div class="account__menu">
               <ul>
-                <li><a href="">Hồ sơ của tôi</a></li>
+                <li><a href="personal-page.php">Hồ sơ của tôi</a></li>
                 <li><a href="logout.php">Đăng xuất</a></li>
               </ul>
             </div>

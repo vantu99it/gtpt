@@ -426,11 +426,9 @@ body {
   font-size: 1.5em;
   color: #cccccc;
 }
-.sidebar .account__avt i {
-  font-size: 2.5em;
-}
+
 .infor-detail__avt .account__avt i {
-  font-size: 4.5em;
+  font-size: 1.5em;
 }
 
 .account__avt img {

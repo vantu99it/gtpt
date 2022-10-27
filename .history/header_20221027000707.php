@@ -53,11 +53,13 @@ if(isset($_SESSION['name'])){
         <?php if(isset($fullName)){ ?>
         <div class="account account--right">
           <div class="account__avt">
+            
             <?php if($avatar != ""){ ?>
              <img src="<?php echo $avatar?>" alt="avata" />
             <?php } else{?>
               <i class="fa-solid fa-user"></i>
               <?php } ?>
+
           </div>
           <div class="account__name">
             <p class="account__fullname"><?php echo $fullName ?></p>
