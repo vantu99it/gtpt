@@ -26,7 +26,7 @@
   <body>
     <?php include 'header.php';?>
     <div class="container">
-      <h5 class="title"></h5>
+      <h5 class="title">PHÒNG TRỌ MỚI ĐĂNG NHẤT</h5>
     </div>
     <script src="script.js"></script>
   </body>
