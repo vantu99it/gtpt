@@ -643,3 +643,13 @@ body {
 #main .notify.close {
   display: none !important;
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+}
+
+.grid .img img{
+  width: 80px;
+  height: 80px;
+}
