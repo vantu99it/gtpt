@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2022 at 10:02 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.3.31
+-- Generation Time: Nov 08, 2022 at 10:20 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.0.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,6 +24,29 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `category`
+--
+
+CREATE TABLE `category` (
+  `id` int(10) NOT NULL,
+  `Category_Name` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `Category_Name`, `title`, `created_at`) VALUES
+(1, 'Phòng đơn', 'Có phòng đơn', '2022-11-08 08:49:47'),
+(2, 'Phòng đôi', 'Phòng rộng rãi, có giường đôi...', '2022-11-08 08:50:39'),
+(3, 'Chung cư mini', 'chung cư ', '2022-11-08 09:18:31'),
+(4, 'căn hộ', 'căn hộ cao cấp', '2022-11-08 09:18:31');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `districts`
 --
 
@@ -31,6 +54,16 @@ CREATE TABLE `districts` (
   `id` int(10) NOT NULL,
   `name` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `districts`
+--
+
+INSERT INTO `districts` (`id`, `name`) VALUES
+(1, 'Thành phố Vinh'),
+(2, 'Thị xã Cửa Lò\r\n'),
+(3, 'Thị xã Hoàng Mai'),
+(4, 'Thanh Hóa');
 
 -- --------------------------------------------------------
 
@@ -54,8 +87,19 @@ CREATE TABLE `motel` (
   `utilities` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `phone` varchar(255) NOT NULL,
-  `approve` int(11) NOT NULL
+  `approve` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `motel`
+--
+
+INSERT INTO `motel` (`Id`, `title`, `description`, `price`, `area`, `count_view`, `address`, `latlng`, `images`, `user_id`, `category_id`, `district_id`, `utilities`, `created_at`, `phone`, `approve`) VALUES
+(1, 'phòng 101', 'Phòng đơn có giường đơn, khép kín.', 850000, 1, 0, '20 Phạm Kinh Vỹ, Phường Bến Thủy, Thành phố Vinh', '', '', 4, 1, 1, 'Phòng có không gian rộng rãi, thoáng đáng, view không gian xanh.', '2022-11-08 09:02:55', '0368123123', 1),
+(2, 'Phòng 201', 'Phòng đơn, không khép kín', 650000, 1, 0, '06 Nguyễn Kiệm, phường trung đô, thành phố Vinh.', '', '', 2, 1, 1, 'Phòng có kích thước 20m2', '2022-11-08 09:06:13', '0348564912', 0),
+(3, 'phòng 102', 'phòng đôi, có hai giường, khép kín', 900000, 2, 0, '20 Phạm Kinh Vỹ, phường Bến Thủy, thành phố vinh', '', '', 5, 2, 2, 'Phòng có nóng lạnh, điều hòa', '2022-11-08 09:09:31', '0352220118', 1),
+(4, 'Phòng 103', 'phòng đôi, khép kín', 950000, 2, 0, '36 Phạm Minh, phường Bến Thủy, thành phố cửa lò', '', '', 6, 2, 2, 'Có điều hòa, nóng lạnh', '2022-11-08 09:15:17', '0234156248', 1),
+(5, 'Phòng 104', 'phòng đôi, khép kín, có điều hòa, nóng lạnh.', 950000, 2, 0, '36 Phạm Minh, phường Bến Thủy, thành phố cửa lò', '', '', 3, 2, 2, 'Có điều hòa, nóng lạnh, đèn cảm ứng...', '2022-11-08 09:15:17', '0234156248', 1);
 
 -- --------------------------------------------------------
 
@@ -91,6 +135,12 @@ INSERT INTO `user` (`id`, `name`, `username`, `email`, `password`, `role`, `phon
 --
 
 --
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `districts`
 --
 ALTER TABLE `districts`
@@ -115,16 +165,22 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `districts`
 --
 ALTER TABLE `districts`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `motel`
 --
 ALTER TABLE `motel`
-  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user`

@@ -14,39 +14,86 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./libs/fontawesome/css/all.min.css" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="./style/style.css">
 </head>
 
 <body>
   <?php include 'header.php'; ?>
-  <div class="container">
-    <h5 class="title">PHÒNG TRỌ MỚI ĐĂNG NHẤT</h5>
+  <div class="wrapper">
+    <h5 class="list_title">PHÒNG TRỌ MỚI ĐĂNG NHẤT</h5>
     <div class="grid">
-      <div class="box flex">
+      <div class="grid-list">
         <div class="img">
-          <img src="./image/anh_phong_1.jpg" />
+          <img src="./image/anh_phong_1.jpg" style="width: 200px; height: 200px;" />
+          <p class="text_img">Ở ghép</p>
         </div>
         <div class="content">
           <p class="name">Phòng trọ tầng 2</p>
           <div class="flex">
             <i class="fa-solid fa-user"></i>
-            <p>Người đăng Hoàng Văn Công</p>
+            <p>Người đăng: <span> Hoàng Văn Công</span></p>
           </div>
           <div class="flex">
             <i class="fa-regular fa-circle-dot"></i>
-            <p>Diện tích 12m</p>
+            <p>Diện tích: <span>12m</span></p>
           </div>
           <div class="flex">
             <i class="fa-solid fa-location-dot"></i>
-            <p>Địa chỉ 36 Bạch Liêu</p>
+            <p>Địa chỉ: <span>36 Bạch Liêu</span></p>
           </div>
           <div class="flex">
-            <i class="fa-regular fa-money-bill"></i>
-            <p>Giá thuê 1.200.000</p>
+          <i class="fa-solid fa-money-bill"></i>
+            <p>Giá thuê: <span>1.200.000</span></p>
+          </div>
+        </div>
+        <div class="date">
+          <div class="flex">
+            <i class="fa-regular fa-clock"></i>
+            <p>2 ngày trước</p>
+          </div>
+          <div class="flex">
+            <i class="fa-solid fa-eye"></i>
+            <p>Lượt xem <span>4</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="grid-list">
+        <div class="img">
+          <img src="./image/anh_phong_1.jpg" style="width: 200px; height: 200px;" />
+          <p class="text_img">Ở ghép</p>
+        </div>
+        <div class="content">
+          <p class="name">Phòng trọ tầng 2</p>
+          <div class="flex">
+            <i class="fa-solid fa-user"></i>
+            <p>Người đăng: <span> Hoàng Văn Công</span></p>
+          </div>
+          <div class="flex">
+            <i class="fa-regular fa-circle-dot"></i>
+            <p>Diện tích: <span>12m</span></p>
+          </div>
+          <div class="flex">
+            <i class="fa-solid fa-location-dot"></i>
+            <p>Địa chỉ: <span>36 Bạch Liêu</span></p>
+          </div>
+          <div class="flex">
+          <i class="fa-solid fa-money-bill"></i>
+            <p>Giá thuê: <span>1.200.000</span></p>
+          </div>
+        </div>
+        <div class="date">
+          <div class="flex">
+            <i class="fa-regular fa-clock"></i>
+            <p>2 ngày trước</p>
+          </div>
+          <div class="flex">
+            <i class="fa-solid fa-eye"></i>
+            <p>Lượt xem <span>4</span></p>
           </div>
         </div>
       </div>
     </div>
+    
   </div>
   <script src="script.js"></script>
 </body>
