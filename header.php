@@ -34,7 +34,7 @@ if(isset($_SESSION['name'])){
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./libs/fontawesome/css/all.min.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./style/style.css" />
   </head>
   <body>
     <div id="header">
