@@ -5,13 +5,6 @@
   $query= mysqli_query($conn, $sql);
   $data = mysqli_fetch_assoc($query);
   $length = mysqli_num_rows($query);
-  $username = $data['name'];
-  $title = $data['title'];
-  $area = $data['area'];
-  $address = $data['address'];
-  $image = $data['images'];
-  $price = $data['price'];
-  // $time = $data['created_at'];
 ?>
 
 <!DOCTYPE html>
@@ -35,74 +28,76 @@
 
 <body>
   <?php include 'header.php'; ?>
-  <div class="container">
-    <div>
-      <h5 class="list_title">PHÒNG TRỌ MỚI ĐĂNG NHẤT</h5>
-    </div>
-    <div class="grid">
-      <?php 
-        foreach ($query as $key => $row){ ?>
-        <div class="grid-list">
-          <div class="img">
-            <img src="<?php echo  $row['images'] ?>" style="width: 100%; height: 100%;" />
-            <p class="text_img"><?php echo $row['category_name'] ?></p>
-          </div>
-          <div class="content">
-            <a href=""><p class="name"><?php echo $row['title'] ?></p></a>
-            <div class="flex">
-              <i class="fa-solid fa-user"></i>
-              <p>Người đăng: <span> <?php echo $row['name'] ?></span></p>
+  <div id="main">
+    <div class="container">
+      <div>
+        <h5 class="list_title">PHÒNG TRỌ MỚI ĐĂNG NHẤT</h5>
+      </div>
+      <div class="grid">
+        <?php 
+          foreach ($query as $key => $row){ ?>
+          <div class="grid-list">
+            <div class="img">
+              <img src="<?php echo  $row['images'] ?>" style="width: 100%; height: 100%;" />
+              <p class="text_img"><?php echo $row['category_name'] ?></p>
             </div>
-            <div class="flex">
-              <i class="fa-regular fa-circle-dot"></i>
-              <p>Diện tích: <span><?php echo $row['area'] ?> m&sup2;</span></p>
+            <div class="content">
+              <a href=""><p class="name"><?php echo $row['title'] ?></p></a>
+              <div class="flex">
+                <i class="fa-solid fa-user"></i>
+                <p>Người đăng: <span> <?php echo $row['name'] ?></span></p>
+              </div>
+              <div class="flex">
+                <i class="fa-regular fa-circle-dot"></i>
+                <p>Diện tích: <span><?php echo $row['area'] ?> m&sup2;</span></p>
+              </div>
+              <div class="flex">
+                <i class="fa-solid fa-location-dot"></i>
+                <p>Địa chỉ: <span><?php echo $row['address'] ?></span></p>
+              </div>
+              <div class="flex">
+              <i class="fa-solid fa-money-bill"></i>
+                <p>Giá thuê: <span>
+                  <?php
+                    $tien = (int) $row['price'];
+                    $bien =0;
+                    if(strlen($tien)>=7){
+                      $bien =  $tien/1000000;
+                      echo $bien." triệu/tháng";
+                    }else {
+                        $bien = number_format($tien,0,",",".");
+                        echo $bien." đồng/tháng";
+                    }
+                  ?> </span></p>
+              </div>
             </div>
-            <div class="flex">
-              <i class="fa-solid fa-location-dot"></i>
-              <p>Địa chỉ: <span><?php echo $row['address'] ?></span></p>
-            </div>
-            <div class="flex">
-            <i class="fa-solid fa-money-bill"></i>
-              <p>Giá thuê: <span>
-                <?php
-                  $tien = (int) $row['price'];
-                  $bien =0;
-                  if(strlen($tien)>=7){
-                    $bien =  $tien/1000000;
-                    echo $bien." triệu/tháng";
-                  }else {
-                      $bien = number_format($tien,0,",",".");
-                      echo $bien." đồng/tháng";
-                  }
-                ?> </span></p>
-            </div>
-          </div>
-          <div class="date">
-            <div class="flex">
-              <i class="fa-regular fa-clock"></i>
-              <p><?php 
-                $time = time() -  strtotime($row['created_at']);
-                if(floor($time/60/60/24)==0){
-                  if(floor($time/60/60)==0){
-                    echo(ceil($time/60)." phút trước");
+            <div class="date">
+              <div class="flex">
+                <i class="fa-regular fa-clock"></i>
+                <p><?php 
+                  $time = time() -  strtotime($row['created_at']);
+                  if(floor($time/60/60/24)==0){
+                    if(floor($time/60/60)==0){
+                      echo(ceil($time/60)." phút trước");
+                    }else{
+                      echo(floor($time/60/60)." tiếng trước");
+                    }
                   }else{
-                    echo(floor($time/60/60)." tiếng trước");
+                    echo(floor($time/60/60/24)." ngày trước");
                   }
-                }else{
-                  echo(floor($time/60/60/24)." ngày trước");
-                }
-              ?>
-              </p>
-            </div>
-            <div class="flex">
-              <i class="fa-solid fa-eye"></i>
-              <p>Lượt xem <span>4</span></p>
+                ?>
+                </p>
+              </div>
+              <div class="flex">
+                <i class="fa-solid fa-eye"></i>
+                <p>Lượt xem <span>4</span></p>
+              </div>
             </div>
           </div>
-        </div>
-      <?php }?>
+        <?php }?>
+      </div>
+      
     </div>
-    
   </div>
   <script src="script.js"></script>
 </body>
