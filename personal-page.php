@@ -1,6 +1,12 @@
 <?php 
 include 'include/connect.php';
 include 'include/function.php';
+
+
+$role = (isset($_SESSION['role']))? $_SESSION['role']:[];
+$checkRole = $role['role'];
+
+
 $display = '';
 $user = (isset($_SESSION['username']))? $_SESSION['username']:[];
 $username = $user['username'];
@@ -80,11 +86,11 @@ if(isset($_POST['close'])){
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./libs/fontawesome/css/all.min.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./style/style.css" />
 </head>
 
 <body>
-    <?php include 'index.php' ?>;
+    <?php include 'header.php' ?>;
     <div id="main">
         <div class="container">
             <div class="row">
@@ -116,9 +122,21 @@ if(isset($_POST['close'])){
                                 <a href="">Hồ sơ</a>
                             </li>
                             <li class="sidebar__list">
-                            <i class="fa-solid fa-lock"></i>
+                                <i class="fa-solid fa-lock"></i>
                                 <a href="">Thay đổi mật khẩu</a>
                             </li>
+                            
+                            <?php if(isset($checkRole)&& $checkRole == 1){ ?>
+                            <li class="sidebar__list">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                                <a href="./admin/post.php">Trang quản trị</a>
+                            </li>
+                            <?php }else{?>
+                                <li class="sidebar__list">
+                                    <i class="fa-solid fa-folder-plus"></i>
+                                    <a href="./admin/post.php">Đăng bài</a>
+                                </li>
+                            <?php }?>
                         </ul>
                     </section>
                 </div>

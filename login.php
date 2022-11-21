@@ -13,10 +13,12 @@ if(isset($_POST['username'])){
   if($checkUser == 1){
     $checkPass = password_verify($pass, $data['password']);
     if($checkPass){
+        $_SESSION['id'] = $data;
         $_SESSION['username'] = $data;
         $_SESSION['name']=$data;
         $_SESSION['email']=$data;
         $_SESSION['phone']=$data;
+        $_SESSION['role'] = $data;
         header('location: index.php');
 
     }

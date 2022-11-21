@@ -44,11 +44,19 @@ if(isset($_SESSION['name'])){
         </div>
         <div class="nav-menu">
           <ul>
-            <li><a href="#">Trang chủ</a></li>
+            <li><a href="./index.php">Trang chủ</a></li>
             <li><a href="">Phòng trọ</a></li>
             <li><a href="">Liên hệ</a></li>
             <li><a href="">Giúp đỡ</a></li>
           </ul>
+        </div>
+        <div class="btn_search">
+        <form action="" class="search" method="post">
+          <input type="text" class="searchTerm" placeholder="Tìm kiếm">
+          <button type="submit" class="searchButton">
+             <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
         </div>
         <?php if(isset($fullName)){ ?>
         <div class="account account--right">

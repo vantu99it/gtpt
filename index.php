@@ -1,3 +1,19 @@
+<?php 
+ include "./include/connect.php";
+  date_default_timezone_set("Asia/Ho_Chi_Minh");
+  $sql = "SELECT m.*, u.name, u.phone, ca.category_name FROM motel m join user  u on u.id = m.user_id join category ca on ca.id = m.category_id WHERE m.status = 1";
+  $query= mysqli_query($conn, $sql);
+  $data = mysqli_fetch_assoc($query);
+  $length = mysqli_num_rows($query);
+  $username = $data['name'];
+  $title = $data['title'];
+  $area = $data['area'];
+  $address = $data['address'];
+  $image = $data['images'];
+  $price = $data['price'];
+  // $time = $data['created_at'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,79 +35,72 @@
 
 <body>
   <?php include 'header.php'; ?>
-  <div class="wrapper">
-    <h5 class="list_title">PHÒNG TRỌ MỚI ĐĂNG NHẤT</h5>
+  <div class="container">
+    <div>
+      <h5 class="list_title">PHÒNG TRỌ MỚI ĐĂNG NHẤT</h5>
+    </div>
     <div class="grid">
-      <div class="grid-list">
-        <div class="img">
-          <img src="./image/anh_phong_1.jpg" style="width: 200px; height: 200px;" />
-          <p class="text_img">Ở ghép</p>
-        </div>
-        <div class="content">
-          <p class="name">Phòng trọ tầng 2</p>
-          <div class="flex">
-            <i class="fa-solid fa-user"></i>
-            <p>Người đăng: <span> Hoàng Văn Công</span></p>
+      <?php 
+        foreach ($query as $key => $row){ ?>
+        <div class="grid-list">
+          <div class="img">
+            <img src="<?php echo  $row['images'] ?>" style="width: 100%; height: 100%;" />
+            <p class="text_img"><?php echo $row['category_name'] ?></p>
           </div>
-          <div class="flex">
-            <i class="fa-regular fa-circle-dot"></i>
-            <p>Diện tích: <span>12m</span></p>
+          <div class="content">
+            <a href=""><p class="name"><?php echo $row['title'] ?></p></a>
+            <div class="flex">
+              <i class="fa-solid fa-user"></i>
+              <p>Người đăng: <span> <?php echo $row['name'] ?></span></p>
+            </div>
+            <div class="flex">
+              <i class="fa-regular fa-circle-dot"></i>
+              <p>Diện tích: <span><?php echo $row['area'] ?> m&sup2;</span></p>
+            </div>
+            <div class="flex">
+              <i class="fa-solid fa-location-dot"></i>
+              <p>Địa chỉ: <span><?php echo $row['address'] ?></span></p>
+            </div>
+            <div class="flex">
+            <i class="fa-solid fa-money-bill"></i>
+              <p>Giá thuê: <span>
+                <?php
+                  $tien = (int) $row['price'];
+                  $bien =0;
+                  if(strlen($tien)>=7){
+                    $bien =  $tien/1000000;
+                    echo $bien." triệu/tháng";
+                  }else {
+                      $bien = number_format($tien,0,",",".");
+                      echo $bien." đồng/tháng";
+                  }
+                ?> </span></p>
+            </div>
           </div>
-          <div class="flex">
-            <i class="fa-solid fa-location-dot"></i>
-            <p>Địa chỉ: <span>36 Bạch Liêu</span></p>
-          </div>
-          <div class="flex">
-          <i class="fa-solid fa-money-bill"></i>
-            <p>Giá thuê: <span>1.200.000</span></p>
-          </div>
-        </div>
-        <div class="date">
-          <div class="flex">
-            <i class="fa-regular fa-clock"></i>
-            <p>2 ngày trước</p>
-          </div>
-          <div class="flex">
-            <i class="fa-solid fa-eye"></i>
-            <p>Lượt xem <span>4</span></p>
-          </div>
-        </div>
-      </div>
-      <div class="grid-list">
-        <div class="img">
-          <img src="./image/anh_phong_1.jpg" style="width: 200px; height: 200px;" />
-          <p class="text_img">Ở ghép</p>
-        </div>
-        <div class="content">
-          <p class="name">Phòng trọ tầng 2</p>
-          <div class="flex">
-            <i class="fa-solid fa-user"></i>
-            <p>Người đăng: <span> Hoàng Văn Công</span></p>
-          </div>
-          <div class="flex">
-            <i class="fa-regular fa-circle-dot"></i>
-            <p>Diện tích: <span>12m</span></p>
-          </div>
-          <div class="flex">
-            <i class="fa-solid fa-location-dot"></i>
-            <p>Địa chỉ: <span>36 Bạch Liêu</span></p>
-          </div>
-          <div class="flex">
-          <i class="fa-solid fa-money-bill"></i>
-            <p>Giá thuê: <span>1.200.000</span></p>
-          </div>
-        </div>
-        <div class="date">
-          <div class="flex">
-            <i class="fa-regular fa-clock"></i>
-            <p>2 ngày trước</p>
-          </div>
-          <div class="flex">
-            <i class="fa-solid fa-eye"></i>
-            <p>Lượt xem <span>4</span></p>
+          <div class="date">
+            <div class="flex">
+              <i class="fa-regular fa-clock"></i>
+              <p><?php 
+                $time = time() -  strtotime($row['created_at']);
+                if(floor($time/60/60/24)==0){
+                  if(floor($time/60/60)==0){
+                    echo(ceil($time/60)." phút trước");
+                  }else{
+                    echo(floor($time/60/60)." tiếng trước");
+                  }
+                }else{
+                  echo(floor($time/60/60/24)." ngày trước");
+                }
+              ?>
+              </p>
+            </div>
+            <div class="flex">
+              <i class="fa-solid fa-eye"></i>
+              <p>Lượt xem <span>4</span></p>
+            </div>
           </div>
         </div>
-      </div>
+      <?php }?>
     </div>
     
   </div>

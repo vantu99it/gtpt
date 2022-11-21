@@ -1,3 +1,7 @@
+<?php 
+ include "../include/connect.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,47 +15,23 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../libs/fontawesome/css/all.min.css" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style/style.css">
     <title>Admin</title>
 </head>
 <body>
     <div class="footer_admin">
         
-        <div class="home-list-room">
-            <div class="container home-list-room-chil">
-                <div class="list_room">
-                    <a href="#"><i class="back fa-regular fa-square-caret-left"></i></a>
-                    <a class="list_admin" href="#">Trang quản lý phòng trọ</a>
-                </div>
-                <div class="list_room_right">
-                    <div class="img-avatar">
-                        <a href="#">
-                            <img src="http://bold.vn/wp-content/uploads/2019/05/bold-academy-5.jpg" alt="avatar">
-                        </a>
-                    </div>
-                    <i class="icon-logout fas fa-sort-down"></i>
-                    <div class="logout">
-                        <a  href="#">Đăng xuất</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="list_manager">
-            <div class="container menu">
-                <a class="back_home_a" href="home.html"><i class="back_home fas fa-home"></i></a>
-                <ul class="menu-chil">
-                    <li><a href="category.html">Danh mục</a></li>
-                    <li><a href="user.html">Người dùng</a></li>
-                    <li><a href="district.html">Khu vực</a></li>
-                    <li><a href="post.html">Bài viết</a></li>
-                </ul>
-            </div>
+        <!-- header -->
+        <?php include "./include/header.php" ?>
+        <!-- /header -->
             <div class="container">
                 <div class="add-district">
-                    <h5>Khu vực</h5>
-                    <p>Tên khu vực</p>
-                    <input type="text">
-                    <button class="btn-add">Thêm</button>
+                    <form action="" method="post">
+                        <h5>Khu vực</h5>
+                        <p>Tên khu vực</p>
+                        <input type="text">
+                        <button class="btn-add">Thêm</button>
+                    </form>
                 </div>
                 <div class="change-district">
                     <h5>Người dùng</h5>
@@ -88,6 +68,7 @@
                     </form>
                 </div>
             </div>
+            
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
