@@ -13,10 +13,12 @@ if(isset($_POST['username'])){
   if($checkUser == 1){
     $checkPass = password_verify($pass, $data['password']);
     if($checkPass){
+        $_SESSION['id'] = $data;
         $_SESSION['username'] = $data;
         $_SESSION['name']=$data;
         $_SESSION['email']=$data;
         $_SESSION['phone']=$data;
+        $_SESSION['role'] = $data;
         header('location: index.php');
 
     }
@@ -44,7 +46,7 @@ if(isset($_POST['username'])){
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style/style.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap"
