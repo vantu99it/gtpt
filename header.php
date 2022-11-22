@@ -51,7 +51,7 @@ if(isset($_SESSION['name'])){
           </ul>
         </div>
         <div class="btn_search">
-        <form action="" class="search" method="post">
+        <form action="./search.php" class="search" method="post">
           <input type="text" class="searchTerm" placeholder="Tìm kiếm">
           <button type="submit" class="searchButton">
              <i class="fa-solid fa-magnifying-glass"></i>
