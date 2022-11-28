@@ -53,6 +53,7 @@ body {
 /**/
 #main {
   position: relative;
+  margin-top: 65px;
 }
 
 @media (max-width: 1200px) {
@@ -353,7 +354,7 @@ body {
 }
 
 .nav-menu {
-  margin-left: 50px;
+  margin-left: 22%;
   display: inline-block;
 }
 
@@ -653,7 +654,7 @@ body {
 }
 
 /* header */
-.btn_search {
+/* .btn_search {
   display: inline-block;
   margin-left: 5%;
   border: 1px solid #ccc;
@@ -674,7 +675,7 @@ body {
   padding: 6px 6px 6px 8px;
   border: none;
   background: none;
-}
+} */
 
 .list_title {
   padding: 30px 0;
@@ -745,4 +746,120 @@ body {
 .grid-list {
   display: flex;
   justify-content: space-between;
+}
+
+/*------------- detail_room ------------------*/
+.grid_room {
+  display: grid;
+  gap: 150px;
+  grid-template-columns: repeat(2,1fr);
+}
+
+.name_room {
+  font-size: 26px;
+  color: #343a40;
+}
+
+.desc_room {
+  display: flex;
+  font-size: 18px;
+  padding: 20px 0 10px 0;
+  justify-content: space-between;
+}
+
+.content_left h4 {
+  padding: 20px 0;
+  font-size: 20px;
+  color: #343a40;
+}
+
+.content_right {
+  color: #343a40;
+  padding: 10px 0 20px 0;
+  padding-top: 26%;
+}
+
+.btn_phone {
+  background-color: #4B70E0;
+  display: flex;
+  width: 100%;
+  color: white;
+  align-items: center;
+  line-height: 38px;
+  margin-top: 15px;
+  border: 1px #4B70E0 solid;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.btn_phone i{
+  padding-right: 10px;
+}
+
+.content_right .top {
+  padding: 20px 0;
+  font-size: 16px;
+}
+
+.info_room {
+  font-size: 18px;
+}
+
+.content_right .middle {
+  padding-top: 20px;
+  font-size: 18px;
+}
+
+/* .content_right .middle h5 {
+  padding: 20px 0;
+} */
+
+.wrap_btn {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* .btn_send {
+  background: #4B70E0;
+    border: 1px solid #4B70E0;
+    font-size: 18px;
+    padding: 12px;
+    border-radius: 5px;
+    color: white;
+}
+
+.btn_edit {
+  background: #d63384;
+  border: 1px solid #d63384;
+  font-size: 18px;
+  padding: 12px;
+  border-radius: 5px;
+  color: white;
+} */
+
+.grid_search {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  background-color: #febb02;
+  padding: 15px 0 15px 3%;
+  border-radius: 10px;
+}
+
+.search {
+  padding: 7px;
+  border-radius: 5px;
+  border: none;
+  width: 320px;
+  outline: none;
+  font-size: 16px;
+}
+
+.searchButton {
+  padding: 6px;
+  background: none;
+  border: none;
+}
+
+.btn_ml {
+  margin-left: -30px;
 }

@@ -34,7 +34,7 @@ if(isset($_SESSION['name'])){
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./libs/fontawesome/css/all.min.css" />
-    <link rel="stylesheet" href="./style/style.css" />
+    <link rel="stylesheet" href="./style/style.css">
   </head>
   <body>
     <div id="header">
@@ -49,14 +49,6 @@ if(isset($_SESSION['name'])){
             <li><a href="">Liên hệ</a></li>
             <li><a href="">Giúp đỡ</a></li>
           </ul>
-        </div>
-        <div class="btn_search">
-        <form action="" class="search" method="post">
-          <input type="text" class="searchTerm" placeholder="Tìm kiếm">
-          <button type="submit" class="searchButton">
-             <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
-        </form>
         </div>
         <?php if(isset($fullName)){ ?>
         <div class="account account--right">
@@ -85,6 +77,35 @@ if(isset($_SESSION['name'])){
         <?php }?>
       </div>
     </div>
+    <div class="container">
+      <div class="secrch grid_search" style="margin-top: 70px;">
+      <div class="search_address">
+      <form action="" method="post">
+          <input type="text" class="search searchAddress" placeholder="Tìm kiếm địa chỉ">
+          <button type="submit" class="btn_ml searchButton">
+             <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+      </div>
+        <form action="" class="search_convenient" method="post">
+          <input type="text" class="search searchConvenient" placeholder="Tìm kiếm tiện nghi">
+          <button type="submit" class="btn_ml searchButton">
+             <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+        <form action="" class="search_price" method="post">
+        <select class="search">
+          <option value="0">Chọn khoảng giá</option>
+          <option value="1">Dưới 1 triệu</option>
+          <option value="2">Từ 1 - 2 triệu</option>
+          <option value="3">Trên 2 triệu</option>
+        </select>
+        <button type="submit" class="searchButton">
+             <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        </form>
+        </div>
+      </div>
     <script src="script.js"></script>
   </body>
 </html>
