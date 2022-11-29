@@ -50,14 +50,6 @@ if(isset($_SESSION['name'])){
             <li><a href="">Giúp đỡ</a></li>
           </ul>
         </div>
-        <div class="btn_search">
-        <form action="" class="search" method="post">
-          <input type="text" class="searchTerm" placeholder="Tìm kiếm">
-          <button type="submit" class="searchButton">
-             <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
-        </form>
-        </div>
         <?php if(isset($fullName)){ ?>
         <div class="account account--right">
           <div class="account__avt">
