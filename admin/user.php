@@ -1,8 +1,49 @@
 <?php 
  include "../include/connect.php";
+ include '../include/function.php';
 
     $role = (isset($_SESSION['role']))? $_SESSION['role']:[];
     $checkRole = $role['role'];
+    $checkid = $role['id'];
+
+    $userQr = mysqli_query($conn, "SELECT * FROM  user");
+    if(isset($_POST['themmoi'])&&($_POST['themmoi'])){
+        $name = $_POST['name'];
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $role = $_POST['role'];
+        $phone = $_POST['phone'];
+        if(isset($_FILES["image"])){
+            $imagePNG = basename($_FILES["image"]["name"]);
+            $imageName = strtolower(vn2en($imagePNG));
+            $target_dir = "./image/";
+            $target_file = $target_dir . $imageName;
+            move_uploaded_file($_FILES["image"]["tmp_name"], "../image/". $imageName);
+        }
+        $sql = "INSERT INTO user(name, username, email, password, role, phone, avatar) VALUES ('$name','$username','$email', '$password', '$role', '$phone', '$target_file')";
+        $query = mysqli_query($conn,$sql);
+        if($query){
+            header("Location: ./user.php");
+        }
+        else{
+            echo "loi";
+        }
+        // var_dump($name);
+        // die();
+    }
+    if(isset($_REQUEST['delete'])&&($_REQUEST['delete'])){
+        $delete = intval($_GET['delete']);
+        $sql = "DELETE FROM user WHERE id = $delete";
+        $query = mysqli_query($conn,$sql);
+        if($query){
+            header("Location: ./user.php");
+        }
+        else{
+            echo "Không thực hiện được!";
+        }
+    }
+    
 ?>
 
 
@@ -30,42 +71,27 @@
         <!-- /header -->
             <div class="container">
                 <div class="add-user">
-                    <form action="" method="post">
+                    <form action="" method="post" enctype="multipart/form-data">
                         <h5>Người dùng</h5>
                         <p>Tên người dùng</p>
-                        <input type="text">
+                        <input type="text" name = "name">
                         <p>Tên tài khoản</p>
-                        <input type="text">
+                        <input type="text" name = "username">
                         <p>Thư điện tử</p>
-                        <input type="text">
+                        <input type="email" name = "email">
                         <p>Mật khẩu</p>
-                        <input type="text">
+                        <input type="password" name = "password">
                         <p>Phân quyền</p>
-                        <input type="text">
+                        <select name="role" id="role_user">
+                            <option value="0">Người dùng</option>
+                            <option value="1">Admin</option>
+                        </select>
                         <p>Điện thoại</p>
-                        <input type="text">
+                        <input type="number" name = "phone">
                         <p>Ảnh đạo diện</p>
-                        <input type="file">
-                        <button class="btn-add">Thêm</button>
+                        <input type="file" name = "image">
+                        <input type="submit" name="themmoi" value="Thêm" class="btn-add"></input>
                     </form>
-                </div>
-                <div class="change-user">
-                    <h5>Người dùng</h5>
-                    <p>Tên người dùng</p>
-                    <input type="text">
-                    <p>Tên tài khoản</p>
-                    <input type="text">
-                    <p>Thư điện tử</p>
-                    <input type="text">
-                    <p>Mật khẩu</p>
-                    <input type="text">
-                    <p>Phân quyền</p>
-                    <input type="text">
-                    <p>Điện thoại</p>
-                    <input type="text">
-                    <p>Ảnh đạo diện</p>
-                    <input type="file">
-                    <button class="btn-add">cập nhật</button>
                 </div>
                 <div class="user">
                     <form action="#">
@@ -82,34 +108,27 @@
                                 <td>Ảnh đại diện</td>
                                 <td>Quản lý</td>
                             </tr>
+                            <?php foreach($userQr as $key => $value){?>
                             <tr>
-                                <td>1</td>
-                                <td>Thành</td>
-                                <td>thanhmblue</td>
-                                <td>nguyenbathanh88888@gmail.com</td>
-                                <td>123456</td>
-                                <td>1</td>
-                                <td>0123456789</td>
-                                <td>image</td>
+                                <td><?php echo $key + 1?></td>
+                                <td><?php echo $value['name'] ?></td>
+                                <td><?php echo $value['username'] ?></td>
+                                <td><?php echo $value['email'] ?></td>
+                                <td><?php $value['password'] ?></td>
+                                <td><?php if($value['role'] == 0){
+                                    echo "Người dùng";
+                                }else{
+                                    echo "Admin";
+                                }
+                                ?></td>
+                                <td><?php echo $value['phone'] ?></td>
+                                <td><?php echo $value['avatar'] ?></td>
                                 <td>
-                                    <button class="btn-change">Sửa</button>
-                                    <button class="btn-delete">Xóa</button>
+                                    <a class="btn-change-1" href="./edit-user.php?id=<?php echo $value['id']?>">Sửa</a>
+                                    <a class="btn-delete" href="./user.php?delete=<?php echo $value['id']?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');">Xóa</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Thành</td>
-                                <td>thanhmblue</td>
-                                <td>nguyenbathanh88888@gmail.com</td>
-                                <td>123456</td>
-                                <td>0</td>
-                                <td>0123456789</td>
-                                <td>image</td>
-                                <td>
-                                    <button class="btn-change">Sửa</button>
-                                    <button class="btn-delete">Xóa</button>
-                                </td>
-                            </tr>
+                            <?php }?>
                         </table>
                     </form>
                 </div>
