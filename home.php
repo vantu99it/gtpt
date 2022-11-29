@@ -64,3 +64,4 @@ echo $foemat;
 echo "<pre>";
 echo $bien;
 ?>
+<?php echo"..."?>

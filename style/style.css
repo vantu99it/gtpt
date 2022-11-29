@@ -692,7 +692,7 @@ body {
 .img {
   position: relative;
   width: 170px;
-  height: 170px;
+  height: 195px;
 }
 
 .text_img {
@@ -716,6 +716,7 @@ body {
   color: #fd7e14;
   font-size: 18px;
   font-weight: 600;
+  height: 54px;
 }
 
 .content .flex {
@@ -748,11 +749,27 @@ body {
   justify-content: space-between;
 }
 
+.page-division {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.page-division .page-item {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  color: #000;
+  margin-right: 5px;
+}
+.page-division .page-item.current_page {
+  color: #fff;
+  background-color: #000;
+}
+
 /*------------- detail_room ------------------*/
 .grid_room {
   display: grid;
   gap: 150px;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .name_room {
@@ -780,19 +797,19 @@ body {
 }
 
 .btn_phone {
-  background-color: #4B70E0;
+  background-color: #4b70e0;
   display: flex;
   width: 100%;
   color: white;
   align-items: center;
   line-height: 38px;
   margin-top: 15px;
-  border: 1px #4B70E0 solid;
+  border: 1px #4b70e0 solid;
   justify-content: center;
   font-size: 18px;
 }
 
-.btn_phone i{
+.btn_phone i {
   padding-right: 10px;
 }
 
@@ -839,7 +856,7 @@ body {
 
 .grid_search {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   background-color: #febb02;
   padding: 15px 0 15px 3%;
   border-radius: 10px;
