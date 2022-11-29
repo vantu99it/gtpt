@@ -4,13 +4,40 @@
   $item_per_page = !empty($_GET['per-page'])?$_GET['per-page']:2;
   $current_page = !empty($_GET['page'])?$_GET['page']:1 ;
   $offset = ($current_page - 1) * $item_per_page;
-  $sql = "SELECT m.*, u.name, u.phone, ca.category_name FROM motel m join user  u on u.id = m.user_id join category ca on ca.id = m.category_id WHERE m.status = 1 ORDER BY m.id DESC LIMIT ".$item_per_page." OFFSET ".$offset;
-  $query= mysqli_query($conn, $sql);
-  $totalPages = mysqli_query($conn, "SELECT * FROM motel");
+
+
+  $key= isset($_GET['keyword'])?$_GET['keyword']:'';
+  $totalPages = mysqli_query($conn, "SELECT m.*, u.name, u.phone, ca.category_name FROM motel m join user  u on u.id = m.user_id join category ca on ca.id = m.category_id WHERE  m.address LIKE '%".$key."%' or m.utilities LIKE '%".$key."%' and m.status = 1 ");
   $totalPages = $totalPages -> num_rows;
   $totalPages = ceil($totalPages/$item_per_page);
 
-  $postNews = mysqli_query($conn, "SELECT m.*, u.name, u.phone, ca.category_name FROM motel m join user  u on u.id = m.user_id join category ca on ca.id = m.category_id WHERE m.status = 1 ORDER BY m.id DESC LIMIT 4");
+  if(isset($_POST['search-address'])&& isset($_POST['search-address'])){
+    $keyword = $_POST['address'];
+    $sql = "SELECT m.*, u.name, u.phone, ca.category_name FROM motel m join user  u on u.id = m.user_id join category ca on ca.id = m.category_id WHERE m.status = 1 and m.address LIKE '%".$keyword."%' LIMIT ".$item_per_page." OFFSET ".$offset;
+  }
+  elseif(isset($_POST['search-convenient'])&& isset($_POST['search-convenient'])){
+    $keyword = $_POST['convenient'];
+    $sql = "SELECT m.*, u.name, u.phone, ca.category_name FROM motel m join user  u on u.id = m.user_id join category ca on ca.id = m.category_id WHERE m.status = 1 and m.utilities LIKE '%".$keyword."%' LIMIT ".$item_per_page." OFFSET ".$offset;
+  }
+  elseif(isset($_POST['search-price'])&& isset($_POST['search-price'])){
+    $keyword = $_POST['price'];
+    if($keyword == '1'){
+      $sql = "SELECT m.*, u.name, u.phone, ca.category_name FROM motel m join user  u on u.id = m.user_id join category ca on ca.id = m.category_id WHERE m.status = 1 AND m.price < 1000000 LIMIT ".$item_per_page." OFFSET ".$offset;
+    }
+    elseif($keyword == '2'){
+      $sql = "SELECT m.*, u.name, u.phone, ca.category_name FROM motel m join user  u on u.id = m.user_id join category ca on ca.id = m.category_id WHERE m.status = 1 AND m.price BETWEEN 1000000 AND 2000000 LIMIT ".$item_per_page." OFFSET ".$offset;
+    }else{
+      $sql = "SELECT m.*, u.name, u.phone, ca.category_name FROM motel m join user  u on u.id = m.user_id join category ca on ca.id = m.category_id WHERE m.status = 1 AND m.price >2000000 LIMIT ".$item_per_page." OFFSET ".$offset;
+    }
+  }
+  else {
+    $keyword = "";
+    $sql = "SELECT m.*, u.name, u.phone, ca.category_name FROM motel m join user  u on u.id = m.user_id join category ca on ca.id = m.category_id WHERE m.status = 1 and m.address LIKE '%".$keyword."%' and m.utilities LIKE '%".$keyword."%' LIMIT ".$item_per_page." OFFSET ".$offset;
+  }
+  $query= mysqli_query($conn, $sql);
+  
+
+  $postNews = mysqli_query($conn, "SELECT m.*, u.name, u.phone, ca.category_name FROM motel m join user  u on u.id = m.user_id join category ca on ca.id = m.category_id WHERE m.status = 1  ORDER BY m.id DESC LIMIT 4");
   
 ?>
 
@@ -42,15 +69,15 @@
           <h5 class="list_title">TẤT CẢ PHÒNG TRỌ</h5>
         </div>
         <div class="grid" style=" margin-bottom: 25px;">
-          <?php 
-            foreach ($query as $key => $row){ ?>
+          <?php if ($query -> num_rows > 0) {
+           while ($row = $query->fetch_assoc()){ ?>
             <div class="grid-list">
               <div class="img">
                 <img src="<?php echo  $row['images'] ?>" style="width: 100%; height: 100%;" />
                 <p class="text_img"><?php echo $row['category_name'] ?></p>
               </div>
               <div class="content">
-                <a href=""><p class="name"><?php echo $row['title'] ?></p></a>
+                <a href="./rooms_details.php?id=<?php echo $row['Id'] ?>"><p class="name"><?php echo $row['title'] ?></p></a>
                 <div class="flex">
                   <i class="fa-solid fa-user"></i>
                   <p>Người đăng: <span> <?php echo $row['name'] ?></span></p>
@@ -83,7 +110,7 @@
                 <div class="flex">
                   <i class="fa-regular fa-clock"></i>
                   <p><?php 
-                    $time = time() -  strtotime($row['created_at']);
+                    $time = time() - strtotime($row['created_at']);
                     if(floor($time/60/60/24)==0){
                       if(floor($time/60/60)==0){
                         echo(ceil($time/60)." phút trước");
@@ -98,11 +125,11 @@
                 </div>
                 <div class="flex">
                   <i class="fa-solid fa-eye"></i>
-                  <p>Lượt xem <span>4</span></p>
+                  <p>Lượt xem <span><?php echo $row['count_view'] ?></span></p>
                 </div>
               </div>
             </div>
-          <?php }?>
+          <?php }}?>
         </div>
         <!-- phân trang -->
         <?php include 'include/page-division.php'; ?>
@@ -120,7 +147,7 @@
                 <p class="text_img"><?php echo $row['category_name'] ?></p>
               </div>
               <div class="content">
-                <a href=""><p class="name"><?php echo $row['title'] ?></p></a>
+                <a  href="./rooms_details.php?id=<?php echo $row['Id'] ?>"><p class="name"><?php echo $row['title'] ?></p></a>
                 <div class="flex">
                   <i class="fa-solid fa-user"></i>
                   <p>Người đăng: <span> <?php echo $row['name'] ?></span></p>
@@ -153,7 +180,7 @@
                 <div class="flex">
                   <i class="fa-regular fa-clock"></i>
                   <p><?php 
-                    $time = time() -  strtotime($row['created_at']);
+                    $time = time() - strtotime($row['created_at']);
                     if(floor($time/60/60/24)==0){
                       if(floor($time/60/60)==0){
                         echo(ceil($time/60)." phút trước");
@@ -168,7 +195,7 @@
                 </div>
                 <div class="flex">
                   <i class="fa-solid fa-eye"></i>
-                  <p>Lượt xem <span>4</span></p>
+                  <p>Lượt xem <span><?php echo $row['count_view'] ?></span></p>
                 </div>
               </div>
             </div>

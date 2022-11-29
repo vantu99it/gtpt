@@ -54,7 +54,7 @@ if(isset($_SESSION['name'])){
         <div class="account account--right">
           <div class="account__avt">
             <?php if($avatar != ""){ ?>
-             <img src="<?php echo $avatar?>" alt="avata" />
+              <img src="<?php echo $avatar?>" alt="avata" />
             <?php } else{?>
               <i class="fa-solid fa-user"></i>
               <?php } ?>
@@ -80,29 +80,29 @@ if(isset($_SESSION['name'])){
     <div class="container">
       <div class="secrch grid_search" style="margin-top: 70px;">
       <div class="search_address">
-      <form action="" method="post">
-          <input type="text" class="search searchAddress" placeholder="Tìm kiếm địa chỉ">
-          <button type="submit" class="btn_ml searchButton">
-             <i class="fa-solid fa-magnifying-glass"></i>
+        <form action="" method="post">
+          <input type="text" class="search searchAddress" name = "address" placeholder="Tìm kiếm địa chỉ">
+          <button type="submit" name = "search-address" class="btn_ml searchButton">
+            <i class="fa-solid fa-magnifying-glass"></i>
           </button>
         </form>
       </div>
         <form action="" class="search_convenient" method="post">
-          <input type="text" class="search searchConvenient" placeholder="Tìm kiếm tiện nghi">
-          <button type="submit" class="btn_ml searchButton">
+          <input type="text" class="search searchConvenient" name = "convenient" placeholder="Tìm kiếm tiện nghi">
+          <button type="submit" name = "search-convenient" class="btn_ml searchButton">
              <i class="fa-solid fa-magnifying-glass"></i>
           </button>
         </form>
-        <form action="" class="search_price" method="post">
-        <select class="search">
-          <option value="0">Chọn khoảng giá</option>
-          <option value="1">Dưới 1 triệu</option>
-          <option value="2">Từ 1 - 2 triệu</option>
-          <option value="3">Trên 2 triệu</option>
-        </select>
-        <button type="submit" class="searchButton">
-             <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
+        <form action="" class="search_price" method="post" >
+          <select class="search" name="price">
+            <option value="0">Chọn khoảng giá</option>
+            <option value="1">Dưới 1 triệu</option>
+            <option value="2">Từ 1 - 2 triệu</option>
+            <option value="3">Trên 2 triệu</option>
+          </select>
+          <button type="submit" name = "search-price" class="searchButton">
+              <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
         </form>
         </div>
       </div>

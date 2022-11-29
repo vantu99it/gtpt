@@ -745,6 +745,7 @@ body {
   display: grid;
   gap: 150px;
   grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 50px;
 }
 
 .name_room {
