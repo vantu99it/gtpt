@@ -27,7 +27,7 @@ $row = mysqli_fetch_assoc($motel);
     if(isset($_FILES["image"])){
         $imagePNG = basename($_FILES["image"]["name"]);
         if(empty($imagePNG)){
-            $target_file = $resultsUpdate -> image;
+            $target_file = $row['images'];
         }else{
         $imageName = strtolower(vn2en($imagePNG));
         $target_dir = "./image/";
@@ -41,7 +41,11 @@ $row = mysqli_fetch_assoc($motel);
     // var_dump($sql);
     // die();
     if($query){
-        header("Location: ./post.php");
+        if($checkRole == 1){
+            header("Location: ./post-admin.php");
+        }else{
+            header("Location: ./post.php");
+        }
     }
     else{
         echo "loi";

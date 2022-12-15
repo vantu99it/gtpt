@@ -236,6 +236,7 @@ if(isset($_POST['close'])){
         </div>
         
     </div>
+    <?php include 'footer.php'; ?>
     <script src="script.js"></script>
 </body>
 

@@ -855,3 +855,52 @@ body {
 .btn_ml {
   margin-left: -30px;
 }
+
+/* footer
+ */
+.footer {
+  height: 250px;
+  width: 100%;
+  background-color: #4b70e2;
+  padding-top: 20px;
+}
+.footer-logo {
+  height: 100px;
+  width: 150px;
+  margin-top: 50px;
+}
+.footer-infor h5 {
+  color: #ffffff;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+.footer-infor ul li {
+  font-size: 14px;
+  color: #ffffff;
+  margin-bottom: 5px;
+}
+.footer-logo img {
+  height: 100%;
+  width: 100%;
+}
+.footer-copy {
+  margin-top: 20px;
+  text-align: center;
+}
+.footer-copy p {
+  font-size: 16px;
+  color: #ffffff;
+}
+.footer-center h5 {
+  color: #ffffff;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+.footer-center ul li {
+  font-size: 14px;
+  color: #ffffff;
+  margin-bottom: 5px;
+}
+.footer-center ul li a {
+  color: #ffffff;
+}
