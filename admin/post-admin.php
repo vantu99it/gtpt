@@ -9,7 +9,7 @@ $checkid = $role['id'];
 
 $categoryQr = mysqli_query($conn, "SELECT * FROM  category");
 $districtsQr = mysqli_query($conn, "SELECT * FROM  districts");
-$motelUser =  mysqli_query($conn, "SELECT m.*, d.name, ca.category_name FROM motel m join districts d on d.id = m.district_id join category ca on ca.id = m.category_id WHERE user_id = $checkid");
+$motel =  mysqli_query($conn, "SELECT m.*, d.name, ca.category_name FROM motel m join districts d on d.id = m.district_id join category ca on ca.id = m.category_id");
 if(isset($_POST['themmoi'])&&($_POST['themmoi'])){
     $title = $_POST['title'];
     $category = $_POST['category'];
@@ -20,16 +20,15 @@ if(isset($_POST['themmoi'])&&($_POST['themmoi'])){
     $price = $_POST['price'];
     $area = $_POST['area'];
     $utilities = $_POST['utilities'];
-    $status = 0;
+    $status = $_POST['status'];
     if(isset($_FILES["image"])){
         $imagePNG = basename($_FILES["image"]["name"]);
         $imageName = strtolower(vn2en($imagePNG));
         $target_dir = "./image/";
         $target_file = $target_dir . $imageName;
         move_uploaded_file($_FILES["image"]["tmp_name"], "../image/". $imageName);
-
     }
-    $sql = "INSERT INTO motel(title,user_id, category_id,district_id,description,address,phone,price,area,utilities,status,images) VALUES ('$title',$checkid ,$category,$districts,'$description','$address','$phone','$price','$area','$utilities',$status,'$target_file')";
+    $sql = "INSERT INTO motel(title,user_id, category_id,district_id,description,address,phone,price,area,utilities,status,images) VALUES ('$title',$checkid ,'$category','$districts','$description','$address','$phone','$price','$area','$utilities','$status','$target_file')";
     // echo ($sql);
     // die();
     $query = mysqli_query($conn, $sql);
@@ -110,7 +109,15 @@ if(isset($_REQUEST['del'])&&($_REQUEST['del'])){
                         <input type="file" name = "image">
                         <p>Chi tiết tiện ích</p>
                         <textarea name="utilities" id="" cols="30" rows="10"></textarea>
-                        
+                        <p>Trạng thái</p>
+                        <div class="status">
+                            <label>
+                                <input type="radio" name="status" id="" value ="1" checked = "Checked"> Hiện
+                            </label>
+                            <label>
+                                <input type="radio" name="status" value ="0" id="" > Ẩn
+                            </label>
+                        </div>
                         <input type="submit" name ="themmoi" value="Thêm mới" class="btn-add btn-add1" >
                     </form>
                 </div>
@@ -134,8 +141,8 @@ if(isset($_REQUEST['del'])&&($_REQUEST['del'])){
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php 
-                                foreach ($motelUser as $key => $value) { ?>
+                            <?php
+                             foreach ($motel as $key => $value) { ?>
                                 <tr>
                                     <td><?php echo  $key + 1  ?></td>
                                     <td><?php echo $value['title'] ?></td>
@@ -156,7 +163,7 @@ if(isset($_REQUEST['del'])&&($_REQUEST['del'])){
                                         <a href="./post.php?del=<?php echo $value['Id']?>" class="btn-add btn-delete" onclick="return confirm('Bạn chắc chắn muốn xóa?');" >Xóa</a>
                                     </td>
                                 </tr>
-                            <?php } ?>
+                            <?php }  ?>
                             </tbody>
                         </table>
                     </form>

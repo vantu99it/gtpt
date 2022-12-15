@@ -6,65 +6,50 @@ include 'include/function.php';
 $role = (isset($_SESSION['role']))? $_SESSION['role']:[];
 $checkRole = $role['role'];
 
-
-$display = '';
 $user = (isset($_SESSION['username']))? $_SESSION['username']:[];
 $username = $user['username'];
-$sqlCheck = "SELECT * FROM user WHERE username = '$username'";
-$queryCheck = mysqli_query($conn, $sqlCheck);
-$data = mysqli_fetch_assoc($queryCheck);
-$usernameVl = $data['username'];
-$nameVl = $data['name'];
-$emailVl = $data['email'];
-$phoneVl = $data['phone'];
-$avatar = $data['avatar'];
+$display = '';
+if(isset($_POST['change'])&&$_POST['change']){
+    $pass = $_POST['pass'];
+    $newPass = $_POST['newpass'];
+    $rePass = $_POST['repass'];
 
-if(isset($_POST['fullname'])){
-  
-  $fullName= $_POST['fullname'];
-  $email= $_POST['email'];
-  $phone= $_POST['phone'];
-
-    if($fullName != $data['name'] or $email != $data['email'] or $phone != $data['phone']){
-    $sql = "UPDATE user SET name = '$fullName', email = '$email', phone = '$phone' WHERE username = '$username'";
-    $query = mysqli_query($conn, $sql);
-    if($query){
-        $display = '1';
+    $err = [];
+    if(empty($pass)){
+    $err['pass'] = '* Bạn chưa nhập mật khẩu';
     }
-  }
-}
-if(isset($_POST['change'])){
-    $uploadOk = 1;
-    $imagePNG = basename($_FILES["avtImage"]["name"]);
-    $imageName = strtolower(vn2en($imagePNG));
-    $imageFileType = pathinfo($imageName,PATHINFO_EXTENSION);
-    // Upload
-    $target_dir = "image/";
-    $target_file = $target_dir . $imageName;
-    // kiểm tra size ảnh
-    if ($_FILES["avtImage"]["size"] > 1000000) {
-        $uploadOk = 0;
+    if(empty($newPass)){
+    $err['newpass'] = '* Bạn chưa nhập mật khẩu';
     }
-    // check các định dạng file ảnh 
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-    && $imageFileType != "gif" ) {
-    $uploadOk = 0;
+    if($newPass != $rePass){
+    $err['rpassword'] = '* Mật khẩu nhập lại chưa đúng';
     }
-    if($uploadOk == 0){
-        $err = "Không thể tải ảnh lên!";
-    }
-    else{
-        move_uploaded_file($_FILES["avtImage"]["tmp_name"], $target_file);
-        $sqlAvt = "UPDATE user SET avatar = '$target_file' WHERE username = '$username'";
-        $queryAvt = mysqli_query($conn, $sqlAvt);
-        header('location: personal-page.php');
+    if(empty($err)){
+        $sqlCheck = "SELECT * FROM user WHERE username = '$username'";
+        $queryCheck = mysqli_query($conn, $sqlCheck);
+        $data = mysqli_fetch_assoc($queryCheck);
+        $check = mysqli_num_rows($queryCheck);
+        if($check == 1){
+            $checkPass = password_verify($pass, $data['password']);
+            if($checkPass=='true'){
+                $passHash = password_hash($newPass,PASSWORD_DEFAULT);
+                $sqlUpade = "UPDATE user SET password = '$passHash' WHERE  username = '$username'";
+                $queryUpade = mysqli_query($conn,  $sqlUpade);
+                if($queryUpade){
+                    $display = '1';
+                }
+            }else{
+                $err['pass'] = 'Mật khẩu cũ chưa chính xác';
+            }
+        }
+        
     }
 
 }
-
 if(isset($_POST['close'])){
-    $display = '0';
+    $display = '';
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -146,79 +131,55 @@ if(isset($_POST['close'])){
                                     <div class="infor-detail__list">
                                         <div class="infor-list flex">
                                             <div class="infor-list__title">
-                                                <lable>Tên đăng nhập</lable>
+                                                <lable>Mật khẩu cũ</lable>
                                             </div>
                                             <div class="infor-list__input">
-                                                <input type="text" name="username" id="" value="<?php echo $user['username'] ?>" disabled>
+                                                <input type="password" name="pass" id="">
+                                            </div>
+                                            <div class="has__error">
+                                                <p><?php echo(isset($err['pass']))?$err['pass']:''?></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="infor-detail__list">
                                         <div class="infor-list flex">
                                             <div class="infor-list__title">
-                                                <lable>Tên đầy đủ</lable>
+                                                <lable>Mật khẩu mới</lable>
                                             </div>
                                             <div class="infor-list__input">
-                                                <input type="text" name="fullname" id="" value="<?php echo $nameVl ?>">
+                                                <input type="password" name="newpass" id="">
+                                            </div>
+                                            <div class="has__error">
+                                                <p><?php echo(isset($err['newpass']))?$err['newpass']:''?></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="infor-detail__list">
                                         <div class="infor-list flex">
                                             <div class="infor-list__title">
-                                                <lable>Email</lable>
+                                                <lable>Nhập lại mật khẩu</lable>
                                             </div>
                                             <div class="infor-list__input">
-                                                <input type="email" name="email" id="" value="<?php echo $emailVl ?>">
+                                                <input type="password" name="repass" id="">
+                                            </div>
+                                            <div class="has__error">
+                                                <p><?php echo(isset($err['rpassword']))?$err['rpassword']:''?></p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="infor-detail__list">
-                                        <div class="infor-list flex">
-                                            <div class="infor-list__title">
-                                                <lable>Số điện thoại</lable>
-                                            </div>
-                                            <div class="infor-list__input">
-                                                <input type="tel" name="phone" id="" value="<?php echo $phoneVl ?>">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input type="submit" value="Lưu" class="form__btn button">
+                                    <input type="submit" name="change" value="Lưu" class="form__btn button">
                                     
                                 </form>
                             </div>
-                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data" method="post" class="form--flex">
-                                <div class="infor-detail__avt">
-                                    <div class="account__avt image">
-                                    <?php if($avatar != ""){ ?>
-                                        <img src="<?php echo $avatar?>" alt="avata" />
-                                    <?php } else{?>
-                                        <i class="fa-solid fa-user"></i>
-                                    <?php } ?>
-                                    </div>
-                                    <div class="infor-detail_upload">
-                                        <input type="file" name="avtImage" >
-                                    </div>
-                                    <div class="has__error">
-                                        <span><?php echo(isset($err))?$err:''?></span>
-                                    </div>
-                                    <div >
-                                        <input type="submit" value="Thay đổi" name ="change" class="btn__img" >
-                                    </div>
-                                    <div class="desc_img">
-                                        <p>Dụng lượng file tối đa 1 MB</p>
-                                        <p>Định dạng:.JPEG, .PNG</p>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                     </section>
                 </div>
             </div>
-            <?php if($display == 1) { ?>
+        </div>
+        <?php if($display == 1) { ?>
             <form action="" method="post">
                 <div class="notify js-modal__notify" style = "display: block">
-                    <p class="notify__title">Thông tin của bạn đã được cập nhật</p>
+                    <p class="notify__title">Mật khẩu đã thay đổi thành công</p>
                     <input type="submit" value="OK" class="notify_button" name = 'close'>
                 </div>
             </form>
@@ -226,15 +187,12 @@ if(isset($_POST['close'])){
             <?php } else {?>
                 <form action="" method="post">
                     <div class="notify js-modal__notify" style = "display: none">
-                        <p class="notify__title">Thông tin của bạn chưa được cập nhật</p>
+                        <p class="notify__title">Có lỗi xảy ra, vui lòng xem lại!</p>
                         <input type="submit" value="OK" class="notify_button" name = 'close'>
                         
                     </div>
                 </form>
             <?php } ?>
-            
-        </div>
-        
     </div>
     <script src="script.js"></script>
 </body>

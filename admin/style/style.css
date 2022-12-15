@@ -328,3 +328,8 @@ td {
   text-align: center;
   outline-color: #00ff80;
 }
+.avatar-image {
+  width: 115px;
+  height: 60px;
+  object-fit: contain;
+}

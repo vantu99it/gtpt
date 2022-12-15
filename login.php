@@ -19,8 +19,12 @@ if(isset($_POST['username'])){
         $_SESSION['email']=$data;
         $_SESSION['phone']=$data;
         $_SESSION['role'] = $data;
-        header('location: index.php');
-
+        if($data['role']==1){
+          header('location: ./admin/index.php');
+        }else{
+          header('location: index.php');
+        }
+        
     }
     else{
         $err['password'] = "Mật khẩu không đúng";

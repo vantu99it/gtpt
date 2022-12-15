@@ -31,8 +31,11 @@
                     <li><a href="category.php">Danh mục</a></li>
                     <li><a href="user.php">Người dùng</a></li>
                     <li><a href="district.php">Khu vực</a></li>
-                <?php }?>
+                    <li><a href="post-admin.php">Bài viết</a></li>
+                    <li><a href="../index.php">Quay về trang chủ</a></a></li>
+                <?php } else{?>
                     <li><a href="post.php">Bài viết</a></li>
                     <li><a href="../index.php">Quay về trang chủ</a></a></li>
+                    <?php }?>
                 </ul>
             </div>

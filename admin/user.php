@@ -77,7 +77,7 @@
                         <input type="text" name = "name">
                         <p>Tên tài khoản</p>
                         <input type="text" name = "username">
-                        <p>Thư điện tử</p>
+                        <p>Email</p>
                         <input type="email" name = "email">
                         <p>Mật khẩu</p>
                         <input type="password" name = "password">
@@ -88,7 +88,7 @@
                         </select>
                         <p>Điện thoại</p>
                         <input type="number" name = "phone">
-                        <p>Ảnh đạo diện</p>
+                        <p>Ảnh đại diện</p>
                         <input type="file" name = "image">
                         <input type="submit" name="themmoi" value="Thêm" class="btn-add"></input>
                     </form>
@@ -101,7 +101,7 @@
                                 <td>ID</td>
                                 <td>Tên người dùng</td>
                                 <td>Tên tài khoản</td>
-                                <td>Thư điện tử</td>
+                                <td>Email</td>
                                 <td>Mật khẩu</td>
                                 <td>Phân quyền</td>
                                 <td>Điện thoại</td>
@@ -122,7 +122,7 @@
                                 }
                                 ?></td>
                                 <td><?php echo $value['phone'] ?></td>
-                                <td><?php echo $value['avatar'] ?></td>
+                                <td><img class="avatar-image" src="<?php echo $value['avatar']?>" alt="image"></td>
                                 <td>
                                     <a class="btn-change-1" href="./edit-user.php?id=<?php echo $value['id']?>">Sửa</a>
                                     <a class="btn-delete" href="./user.php?delete=<?php echo $value['id']?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');">Xóa</a>

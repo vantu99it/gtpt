@@ -20,7 +20,7 @@ if (isset($_POST['capnhat']) && ($_POST['capnhat'])) {
         $target_file = $target_dir . $imageName;
         move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
     }
-    $sql = "UPDATE user SET name= '$name', username= '$username', email = '$email', password = '$password', role = $role, phone = '$phone', avatar = '$target_file' WHERE id = $id";
+    $sql = "UPDATE user SET name= '$name', username= '$username', email = '$email',role = $role, phone = '$phone', avatar = '$target_file' WHERE id = $id";
     $query = mysqli_query($conn, $sql);
     // var_dump($sql);
     // die();
@@ -61,12 +61,10 @@ if (isset($_POST['capnhat']) && ($_POST['capnhat'])) {
                     <input type="text" value="<?php echo $row['username'] ?>" name="username">
                     <p>Thư điện tử</p>
                     <input type="email" value="<?php echo $row['email'] ?>" name="email">
-                    <p>Mật khẩu</p>
-                    <input type="password" value="<?php echo $row['password'] ?>" name="password">
                     <p>Phân quyền</p>
                     <select name="role" id="role_user">
-                        <option value="0"<?php if($row['role'] == 0) ?>>Người dùng</option>
-                        <option value="1" <?php if($row['role'] == 1) ?> >Admin</option>
+                        <option value="0"<?php if($row['role'] == 0) echo 'selected'; ?>>Người dùng</option>
+                        <option value="1" <?php if($row['role'] == 1) echo 'selected'; ?> >Admin</option>
                     </select>
                     <p>Điện thoại</p>
                     <input type="number" value="<?php echo $row['phone'] ?>" name="phone">

@@ -4,6 +4,7 @@
  include '../include/function.php';
  $role = (isset($_SESSION['role']))? $_SESSION['role']:[];
  $checkid = $role['id'];
+ $checkRole = $role['role'];
 
  $categoryQr = mysqli_query($conn, "SELECT * FROM  category");
  $districtsQr = mysqli_query($conn, "SELECT * FROM  districts");
@@ -25,11 +26,14 @@ $row = mysqli_fetch_assoc($motel);
     $status = $_POST['status'];
     if(isset($_FILES["image"])){
         $imagePNG = basename($_FILES["image"]["name"]);
+        if(empty($imagePNG)){
+            $target_file = $resultsUpdate -> image;
+        }else{
         $imageName = strtolower(vn2en($imagePNG));
         $target_dir = "./image/";
         $target_file = $target_dir . $imageName;
         move_uploaded_file($_FILES["image"]["tmp_name"], "../image/". $imageName);
-
+        }
     }
 
     $sql = "UPDATE motel SET title ='$title', category_id = '$category',district_id = '$districts',description = '$description',address = '$address',phone = '$phone',price ='$price' ,area ='$area' ,utilities ='$utilities' ,status  = '$status',images  =  '$target_file' WHERE id = $id";
@@ -101,16 +105,18 @@ $row = mysqli_fetch_assoc($motel);
                         <input type="file" name = "image">
                         <p>Chi tiết tiện ích</p>
                         <textarea name="utilities" id="" cols="30" rows="10"> <?php echo $row['utilities'] ?></textarea>
-                        <p>Trạng thái</p>
-                        <div class="status">
-                            <label>
-                                <input type="radio" name="status" id="" value ="1" <?php if($row['status'] == 1) echo  "checked = 'Checked'" ?>> Hiện
+                        <?php if($checkRole == 1){?>
+                            <p>Trạng thái</p>
+                            <div class="status">
+                                <label>
+                                    <input type="radio" name="status" id="" value ="1" <?php if($row['status'] == 1) echo  "checked = 'Checked'" ?>> Hiện
 
-                            </label>
-                            <label>
-                                <input type="radio" name="status" value ="0" <?php if($row['status'] == 0) echo  "checked = 'Checked'" ?> id="" > Ẩn
-                            </label>
-                        </div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="status" value ="0" <?php if($row['status'] == 0) echo  "checked = 'Checked'" ?> id="" > Ẩn
+                                </label>
+                            </div>
+                        <?php }?>
                         <input type="submit" name ="capnhat" value="Cập nhật" class="btn-add btn-add1" >
                     </form>
                 </div>

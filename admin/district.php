@@ -32,7 +32,7 @@ if(isset($_POST['capnhat'])&&($_POST['capnhat'])){
      //  var_dump($districtName);
      //  die();
  
-     $sql = "UPDATE category SET name = '$districtName'WHERE id = $ids";
+     $sql = "UPDATE districts SET name = '$districtName'WHERE id = $ids";
      $query = mysqli_query($conn,$sql);
      if($query){
          header("Location: ./district.php");
@@ -88,14 +88,16 @@ if(isset($_REQUEST['del'])&&($_REQUEST['del'])){
                     </form>
                 </div>
                 <?php }else{ ?>
-
                 <div class="change-district">
+                <form action="" method="post">
                     <h5>Khu vực</h5>
                     <p>Tên khu vực</p>
                     <input type="hidden" value ="<?php echo $row['id'] ?>" name = "id">
-                    <input type="text" name="district-name">
+                    <input type="text" name="district-name" value ="<?php echo $row['name']?>">
                     <input type="submit" value="Cập nhật" name="capnhat" class="btn-add">
+                </form>
                 </div>
+
                 <?php } ?>
 
                 <div class="district">
@@ -104,9 +106,9 @@ if(isset($_REQUEST['del'])&&($_REQUEST['del'])){
                         <table class="show-district">
                             <thead>
                             <tr class="title">
-                                <td>ID</td>
-                                <td>Tên khu vực</td>
-                                <td class="change-row change-row-manager">quản lý</td>
+                                <td style = "width: 10%;">ID</td>
+                                <td style = "width: 80%;">Tên khu vực</td>
+                                <td style = "width: 10%;">Quản lý</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -120,7 +122,6 @@ if(isset($_REQUEST['del'])&&($_REQUEST['del'])){
                                 </td>
                             </tr>
                                 <?php } ?>
-                            
                             </tbody>
                         </table>
                     </form>

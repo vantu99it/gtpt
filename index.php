@@ -38,6 +38,7 @@
   
 
   $postNews = mysqli_query($conn, "SELECT m.*, u.name, u.phone, ca.category_name FROM motel m join user  u on u.id = m.user_id join category ca on ca.id = m.category_id WHERE m.status = 1  ORDER BY m.id DESC LIMIT 4");
+  $postViews = mysqli_query($conn, "SELECT m.*, u.name, u.phone, ca.category_name FROM motel m join user  u on u.id = m.user_id join category ca on ca.id = m.category_id WHERE m.status = 1  ORDER BY m.count_view DESC LIMIT 4");
   
 ?>
 
@@ -141,6 +142,74 @@
         <div class="grid" style=" margin-bottom: 25px;">
           <?php 
             foreach ($postNews as $key => $row){ ?>
+            <div class="grid-list">
+              <div class="img">
+                <img src="<?php echo  $row['images'] ?>" style="width: 100%; height: 100%;" />
+                <p class="text_img"><?php echo $row['category_name'] ?></p>
+              </div>
+              <div class="content">
+                <a  href="./rooms_details.php?id=<?php echo $row['Id'] ?>"><p class="name"><?php echo $row['title'] ?></p></a>
+                <div class="flex">
+                  <i class="fa-solid fa-user"></i>
+                  <p>Người đăng: <span> <?php echo $row['name'] ?></span></p>
+                </div>
+                <div class="flex">
+                  <i class="fa-regular fa-circle-dot"></i>
+                  <p>Diện tích: <span><?php echo $row['area'] ?> m&sup2;</span></p>
+                </div>
+                <div class="flex">
+                  <i class="fa-solid fa-location-dot"></i>
+                  <p>Địa chỉ: <span><?php echo $row['address'] ?></span></p>
+                </div>
+                <div class="flex">
+                <i class="fa-solid fa-money-bill"></i>
+                  <p>Giá thuê: <span>
+                    <?php
+                      $tien = (int) $row['price'];
+                      $bien =0;
+                      if(strlen($tien)>=7){
+                        $bien =  $tien/1000000;
+                        echo $bien." triệu/tháng";
+                      }else {
+                          $bien = number_format($tien,0,",",".");
+                          echo $bien." đồng/tháng";
+                      }
+                    ?> </span></p>
+                </div>
+              </div>
+              <div class="date">
+                <div class="flex">
+                  <i class="fa-regular fa-clock"></i>
+                  <p><?php 
+                    $time = time() - strtotime($row['created_at']);
+                    if(floor($time/60/60/24)==0){
+                      if(floor($time/60/60)==0){
+                        echo(ceil($time/60)." phút trước");
+                      }else{
+                        echo(floor($time/60/60)." tiếng trước");
+                      }
+                    }else{
+                      echo(floor($time/60/60/24)." ngày trước");
+                    }
+                  ?>
+                  </p>
+                </div>
+                <div class="flex">
+                  <i class="fa-solid fa-eye"></i>
+                  <p>Lượt xem <span><?php echo $row['count_view'] ?></span></p>
+                </div>
+              </div>
+            </div>
+          <?php }?>
+        </div>
+      </div>
+      <div class="new-rooms">
+        <div>
+          <h5 class="list_title">PHÒNG XEM NHIỀU NHẤT</h5>
+        </div>
+        <div class="grid" style=" margin-bottom: 25px;">
+          <?php 
+            foreach ($postViews as $key => $row){ ?>
             <div class="grid-list">
               <div class="img">
                 <img src="<?php echo  $row['images'] ?>" style="width: 100%; height: 100%;" />
