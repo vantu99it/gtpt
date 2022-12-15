@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th10 29, 2022 lúc 09:30 AM
--- Phiên bản máy phục vụ: 10.4.21-MariaDB
--- Phiên bản PHP: 7.3.31
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th12 15, 2022 lúc 05:49 AM
+-- Phiên bản máy phục vụ: 10.4.27-MariaDB
+-- Phiên bản PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,7 +32,7 @@ CREATE TABLE `category` (
   `category_name` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `category`
@@ -52,7 +52,7 @@ INSERT INTO `category` (`id`, `category_name`, `title`, `created_at`) VALUES
 CREATE TABLE `districts` (
   `id` int(10) NOT NULL,
   `name` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `districts`
@@ -62,7 +62,7 @@ INSERT INTO `districts` (`id`, `name`) VALUES
 (1, 'Thành phố Vinh'),
 (2, 'Thị xã Cửa Lò\r\n'),
 (3, 'Thị xã Hoàng Mai'),
-(4, 'Thanh Hóa');
+(6, 'Anh sơn');
 
 -- --------------------------------------------------------
 
@@ -87,7 +87,7 @@ CREATE TABLE `motel` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `phone` varchar(255) NOT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `motel`
@@ -99,15 +99,16 @@ INSERT INTO `motel` (`Id`, `title`, `description`, `price`, `area`, `count_view`
 (4, 'Phòng 103', 'phòng đôi, khép kín', 950000, 2, 0, '36 Phạm Minh, phường Bến Thủy, thành phố cửa lò', '', './image/txz.jpg', 8, 2, 2, ' Có điều hòa, nóng lạnh', '2022-11-20 14:04:10', '0234156248', 1),
 (5, 'Phòng 104', 'phòng đôi, khép kín, có điều hòa, nóng lạnh.', 950000, 2, 0, '36 Phạm Minh, phường Bến Thủy, thành phố cửa lò', '', './image/tai-xuong4.jpg', 8, 2, 2, ' Có điều hòa, nóng lạnh, đèn cảm ứng...', '2022-11-20 14:10:03', '0234156248', 1),
 (11, 'Cho thuê trọ giá rẻ', 'Trọ giá rẻ', 800000, 18, 3, 'Ngõ 2, nhà 23 Bạch Liêu, Bến Thủy', '', './image/tai-xuong.png', 8, 1, 1, 'Cho thuê trọ giá rẻ', '2022-11-20 11:51:55', '0376553525', 1),
-(12, 'Cho thuê phòng trọ cao cấp', 'Phòng trọ cao cấp dạng chung cư mini', 1800000, 25, 0, 'Ngõ 18, nhà 2 Bạch Liêu, Bến Thủy', '', './image/tai-xuong3.jpg', 8, 3, 1, '  Chung cư mini cao cấp', '2022-11-20 14:09:31', '0927441099', 1),
-(13, 'Trọ mới đẹp', 'Trọ đẹp', 850000, 18, 0, 'Ngõ 2, nhà 25 Bạch Liêu, Bến Thủy', '', './image/tai-xuong3.jpg', 8, 1, 1, ' asmcb dgg', '2022-11-20 14:24:32', '0949535587', 1),
-(14, 'Cho thuê trọ giá rẻ đại học vinh', 'Phòng trọ đẹp, giá rẻ, không chung cổng chủ', 1000000, 20, 0, 'Ngõ 2, nhà 24 Bạch Liêu, Bến Thủy', '', './image/311406820-123897723794681-2402165834379861155-n.jpg', 7, 1, 1, 'Trọ đẹp, không chung cổng chủ', '2022-11-28 17:16:47', '0949535587', 1),
+(12, 'Cho thuê phòng trọ cao cấp', 'Phòng trọ cao cấp dạng chung cư mini', 1800000, 25, 1, 'Ngõ 18, nhà 2 Bạch Liêu, Bến Thủy', '', './image/tai-xuong3.jpg', 8, 3, 1, '  Chung cư mini cao cấp', '2022-11-20 14:09:31', '0927441099', 1),
+(13, 'Trọ mới đẹp', 'Trọ đẹp', 850000, 18, 9, 'Ngõ 2, nhà 25 Bạch Liêu, Bến Thủy', '', './image/tai-xuong3.jpg', 8, 1, 1, ' asmcb dgg', '2022-11-20 14:24:32', '0949535587', 1),
+(14, 'Cho thuê trọ giá rẻ đại học vinh', 'Phòng trọ đẹp, giá rẻ, không chung cổng chủ', 1000000, 21, 0, 'Ngõ 2, nhà 24 Bạch Liêu, Bến Thủy', '', './image/293294351-415606233959166-200446455010247437-n.jpg', 7, 1, 1, '   Trọ đẹp, không chung cổng chủ', '2022-11-28 17:16:47', '0949535587', 0),
 (15, 'Cho thuê trọ gần quảng trường', 'Trọ đẹp gần quảng trường', 1600000, 25, 0, '3 , ngõ 80 Nguyễn Văn Cừ', '', './image/315318258-3314613108794010-7296052245865437346-n.jpg', 7, 2, 1, 'Trọ khép kín, an ninh tốt\r\nKhông chung cổng cgur,...', '2022-11-28 17:18:15', '0376553521', 1),
 (16, 'Nhà trọ đẹp bên thủy', 'Trọ đẹp mới xây', 1300000, 18, 0, 'Ngõ 18, nhà 30 Bạch Liêu, Bến Thủy', '', './image/311811011-123897667128020-2886266447534778639-n.jpg', 7, 1, 1, 'Trọ đẹp \r\nan ninh\r\nKhông chung cổng chủ\r\ndầy đủ điều hòa nóng lạnh\r\n', '2022-11-28 17:19:22', '0932379945', 1),
 (19, 'Trọ cách đại học vinh 500m', 'Trọ đẹp mới xây', 1300000, 18, 20, 'Ngõ 18, nhà 30 Bạch Liêu, Bến Thủy', '', './image/311811011-123897667128020-2886266447534778639-n.jpg', 7, 1, 1, 'Trọ đẹp \r\nan ninh\r\nKhông chung cổng chủ\r\ndầy đủ điều hòa nóng lạnh\r\n', '2022-11-29 06:33:47', '0932379945', 1),
 (20, 'Trọ thường cách đại học vinh 200m', 'phòng đơn', 800000, 18, 0, 'Ngõ 8, nhà 2 Bạch Liêu, Bến Thủy', '', './image/phong-tro-dep.jpg', 7, 1, 1, '', '2022-11-28 17:21:10', '0932379893', 1),
 (21, 'Cho thuê trọ giá rẻ phong đình cảng', 'Trọ đẹp, giá rẻ', 950000, 20, 2, 'nhà số 8, ngõ 16 phong đình cảng', '', './image/311505428-123897693794684-4010742203207472287-n.jpg', 7, 2, 1, 'Trọ đẹp, giá rẻ, gần đại học vinh\r\nan ninh tốt', '2022-11-29 01:41:09', '0935697863', 1),
-(22, 'Cho thuê trọ giá rẻ Bạch liêu', 'Trọ đẹp, giá rẻ', 1200000, 22, 14, 'Ngõ 2, nhà 23 Bạch Liêu, Bến Thủy', '', './image/26805310-2062015460702595-4385884487802902129-n.jpg', 7, 2, 1, 'Trọ đẹp, giá rẻ, gần đại học vinh\r\nan ninh tốt', '2022-11-29 06:40:03', '0935697863', 1);
+(22, 'Cho thuê trọ giá rẻ Bạch liêu', 'Trọ đẹp, giá rẻ', 1200000, 22, 23, 'Ngõ 2, nhà 23 Bạch Liêu, Bến Thủy', '', './image/26805310-2062015460702595-4385884487802902129-n.jpg', 7, 2, 1, 'Trọ đẹp, giá rẻ, gần đại học vinh\r\nan ninh tốt', '2022-11-29 06:40:03', '0935697863', 1),
+(26, 'Phòng trọ đẹp giá rẻ', 'phòng đơn', 1500000, 30, 2, 'Ngõ 22, nhà 23 Bạch Liêu, Bến Thủy', '', './image/293294351-415606233959166-200446455010247437-n.jpg', 7, 1, 1, '  Chi tiết ', '2022-12-13 08:38:38', '0932379943', 1);
 
 -- --------------------------------------------------------
 
@@ -124,14 +125,14 @@ CREATE TABLE `user` (
   `role` int(11) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `avatar` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `user`
 --
 
 INSERT INTO `user` (`id`, `name`, `username`, `email`, `password`, `role`, `phone`, `avatar`) VALUES
-(7, 'Nguyễn Văn Tú', 'tu', 'Tu123@gmail.com', '$2y$10$J567LEzEAjGmo5QF6qKu.ONgbc2R/fhQF2Nz7YKU4Nc.7/DlsS/d6', 0, '0932379943', 'image/z3213980939821-dbd2295aeef7fd41cc2856ea3aa073d5.jpg'),
+(7, 'Nguyễn Văn Tú', 'tu', 'Tu123456@gmail.com', '$2y$10$wVIdIsMNRvd2fUkvq0cYRea4Z7JngFsOR1mtODspEAM2zTvH157qm', 0, '0932379943', 'image/313417091-1289889448434031-2927915241727924488-n.jpg'),
 (8, 'Admin', 'admin', 'admin@gmail.com', '$2y$10$LdZdsX1K.N3lfMrG/nwkh.s6aOBeqpeG.cftzIUjb4Y9JVQDnBkIO', 1, '0376553525', ''),
 (9, 'Phạm Thị Thu Trà', 'tra', 'tra@gmail.com', '$2y$10$0/X02asM2exCLfSV1.Xnie/Sp9juUCfd4qkmqim0jgJzNDioKRi6K', 0, '', ''),
 (11, 'Nguyễn Văn A', 'tu123', 'starlovemoon01031999@gmail.com', 'Timphongnhanh123@', 0, '0932379944', './image/26219103-2062015394035935-7996651768375237646-n.jpg');
@@ -180,13 +181,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT cho bảng `districts`
 --
 ALTER TABLE `districts`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `motel`
 --
 ALTER TABLE `motel`
-  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
